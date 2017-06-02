@@ -160,3 +160,18 @@ TRAEFIK_TABLE=traefik-staging  # dynamodb table name
 CLUSTER=staging                # ecs cluster name
 DEBUG=on                       # if set to on, will print tons of crap
 ```
+
+## Build
+
+```
+GOOS=darwin bash scripts/build_binary.sh
+```
+
+## Docker
+
+There is a docker image on dockerhub at [tskinn/ecs-task-tracker](https://hub.docker.com/r/tskinn12/ecs-task-tracker/).
+If you are running on AWS ECS there is a sample task-definition.
+
+```
+docker run -p 8080:8080 -e REGION=us-east-1 -e PORT=:8080 -e TRAEFIK_TABLE=table -e CLUSTER=cluster tskinn12/ecs-task-tracker
+```

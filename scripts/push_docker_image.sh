@@ -12,6 +12,9 @@ set -e
 
 NAME=ecs-task-tracker
 IMAGE_TAG=${1}
+if [[ ${IMAGE_TAG} == "" ]]; then
+    IMAGE_TAG=test
+fi
 
 docker push tskinn12/${NAME}:latest
 docker push tskinn12/${NAME}:${IMAGE_TAG}
