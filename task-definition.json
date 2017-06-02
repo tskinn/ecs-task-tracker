@@ -1,0 +1,27 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "<NAME>",
+            "memory": 40,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [],
+            "essential": true,
+            "image": "<IMAGE_NAME>",
+            "cpu": 128,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/aws/ecs/<LOG_PATH>",
+                    "awslogs-region": "us-east-1"
+                }
+            }
+        }
+    ],
+    "family": "<SERVICE_NAME>",
+    "taskRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/<ROLE_NAME>"
+}
