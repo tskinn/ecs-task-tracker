@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The ecs-task-tracker was created in order to keep load balancers up-to-date with the everchanging location of tasks running on AWS ECS. It is one piece in a service discovery system for ecs.
+The ecs-task-tracker was created in order to keep load balancers up-to-date with the everchanging location of tasks running on AWS ECS. It is one piece in a service discovery system for ecs which relies on [traefik](https://traefik.io/)
 
 
 ## Flow of stuff
@@ -19,7 +19,7 @@ ECS Cluster ---->> TaskEvent ---->> SNS ---->> http://ecs-task-tracker.mydomain.
  /\ /\                                                                          ||
  || ||                                                                          ||
  || ||                                                                          \/
-Traefik  <<----	<<----	<<----	<<----	<<----	<<----  <<----  <<----	DynamoDB traefik-production
+Traefik  <<----	<<----	<<----	<<----	<<----	<<----  <<----  <<----	DynamoDB traefik-table
  /\ /\
  || ||
  || ||
@@ -28,9 +28,9 @@ Internet
 
 ## What is stored in DynamoDB?
 
-Since the DynamoDB table is consumed by traefik instances, the data stored in dynamodb is almost the same structure of the structs that traefik uses to route requests. See traefiks [types](https://github.com/containous/traefik/blob/master/types/types.go).
+Since the DynamoDB table is consumed by [traefik](https://traefik.io/) instances, the data stored in dynamodb is almost the same structure of the structs that [traefik](https://traefik.io/) uses to route requests. See traefiks [types](https://github.com/containous/traefik/blob/master/types/types.go).
 
-There are basically two types of items stored in the DynamoDB table: backends and frontends. Traefik needs both in order to serve network requests. The frontend specifies rules governing what incoming traffic should go to which backend. The backend keeps track of the network addresses to send traffic to as well as how to load balance to those addresses.
+There are basically two types of items stored in the DynamoDB table: backends and frontends. [Traefik](https://traefik.io/) needs both in order to serve network requests. The frontend specifies rules governing what incoming traffic should go to which backend. The backend keeps track of the network addresses to send traffic to as well as how to load balance to those addresses.
 
 ### Backends
 Here is an example of one of the DynamoDB items:
